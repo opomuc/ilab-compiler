@@ -289,10 +289,6 @@ CNode* const_optimization(const CNode* subtree)
             {
                 return new CNode("ln", const_optimization(subtree->left));
             }
-            // else if (strcmp(subtree->func.c_str(), "tg") == 0)
-            {
-                 //return new CNode("/", new CNode (1.0), derivate(subtree->left));
-            }
             break;
         }
         }
