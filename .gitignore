@@ -18,9 +18,6 @@
 *.xcworkspacedata
 *.xcuserstate
 *.pbxproj
-*.plist
-*.xcscheme
-*.pbxproj
 *.gz
 *.log
 *.aux
