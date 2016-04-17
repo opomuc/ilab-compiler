@@ -4,7 +4,7 @@ dependencies:
     pre:
         - >-
             if [[ ! -d "~/.apt-cache" ]]; then \
-            sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+            rm -rf /var/cache/apt/archives && ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
             ; fi
     post:
         - sudo apt-get install texlive-base
