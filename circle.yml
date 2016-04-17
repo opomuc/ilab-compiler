@@ -1,0 +1,7 @@
+dependencies:
+   pre:
+      - npm install latex
+      - npm install pdflatex
+test:
+   post:
+      - make
