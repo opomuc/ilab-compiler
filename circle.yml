@@ -6,6 +6,7 @@ dependencies:
         - sudo apt-get install texlive-base
         - sudo apt-get install texlive-latex-base
         - sudo apt-get install texlive-pictures
+        - sudo apt-get install texlive-humanities
         - sudo apt-get install texlive-lang-english
         - sudo apt-get install texlive-lang-cyrillic
         - sudo apt-get install texlive-fonts-recommended
