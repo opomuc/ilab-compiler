@@ -1,19 +1,21 @@
-.PHONY: all clean
+.PHONY: all clean pdf
 
 # compiler settings
 CC=g++
 CFLAGS=-c -g -Wall -std=c++11
 LATEXCC=pdflatex
-LATEXFLAGS=
+LATEXFLAGS=-quiet
 
 # files
 SOURCES=Math.cpp Tree.cpp main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Mat
 TEX_FILES=tree.tex
-PDF_FILES=tree.pdf
+PDF_FILES=$(TEX_FILES:.tex=.pdf)
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(EXECUTABLE) pdf
+
+pdf: $(PDF_FILES)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
@@ -22,10 +24,13 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 %.tex:
-	./$(EXECUTABLE)
+	ifeq ($(OS),Windows_NT)
+		$(EXECUTABLE)
+	else
+		./$(EXECUTABLE)
 
 %.pdf: %.tex
-	$(LATEXCC) $(LATEXFLAGS) $< -o $@
+	$(LATEXCC) $(LATEXFLAGS) $<
 
 clean:
 	rm -rf $(EXECUTABLE) $(OBJECTS) $(TEX_FILES) $(PDF_FILES)
