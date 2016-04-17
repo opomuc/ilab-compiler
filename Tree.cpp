@@ -86,8 +86,9 @@ CNode::CNode(string t_str, CNode* t_left)
     func = t_str;
 }
 
-tree_print::tree_print(const char* name) {
-    tree_print::output = ofstream(name);
+tree_print::tree_print(const char* name):
+output(name)
+{
     output << "\\documentclass[a4paper, 12pt]{article}\n\
     \\usepackage[T2A,T1]{fontenc}\n\
     \\usepackage[utf8]{inputenc}\n\
