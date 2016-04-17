@@ -2,7 +2,7 @@
 
 # compiler settings
 CC=g++
-CFLAGS=-c -g -Wall
+CFLAGS=-c -g -Wall -std=c++11
 LATEXCC=
 LATEXFLAGS=
 
