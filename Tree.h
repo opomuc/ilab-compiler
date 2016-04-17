@@ -56,7 +56,7 @@ class tree_print {
     void print_tree_(CNode* tree);
     //ofstream create_tex();
 public:
-    tree_print(string);
+    tree_print(const char*);
     ~tree_print();
     void equation(CNode* tree);
     void tree(CNode* tree);

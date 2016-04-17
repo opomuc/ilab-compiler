@@ -86,7 +86,7 @@ CNode::CNode(string t_str, CNode* t_left)
     func = t_str;
 }
 
-tree_print::tree_print(string name) {
+tree_print::tree_print(const char* name) {
     tree_print::output = std::ofstream (name);
     output << "\\documentclass[a4paper, 12pt]{article}\n\
     \\usepackage[T2A,T1]{fontenc}\n\
@@ -298,6 +298,7 @@ CNode* const_optimization(const CNode* subtree)
         }
 
     }
+    return NULL;
 }
 
 CNode* derivate(const CNode* subtree)
@@ -377,4 +378,5 @@ CNode* derivate(const CNode* subtree)
         break;
     }
     }
+    return NULL;
 }
