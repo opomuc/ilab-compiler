@@ -13,7 +13,7 @@ EXECUTABLE=Mat
 TEX_FILES=tree.tex
 PDF_FILES=tree.pdf
 
-all: $(SOURCES) $(EXECUTABLE) tree.pdf
+all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
