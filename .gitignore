@@ -13,3 +13,13 @@
 **/*.h.gch
 **/*~
 **/*.swp
+*.xcscheme
+*.plist
+*.xcworkspacedata
+*.xcuserstate
+*.pbxproj
+*.gz
+*.log
+*.aux
+*.pdf
+*.tex

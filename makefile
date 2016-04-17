@@ -2,12 +2,12 @@
 
 # compiler settings
 CC=g++
-CFLAGS=-c -g -Wall
+CFLAGS=-c -g -Wall -std=c++11
 LATEXCC=
 LATEXFLAGS=
 
 # files
-SOURCES=Math.cpp Tree.cpp man.cpp
+SOURCES=Math.cpp Tree.cpp main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Mat
 TEX_FILE=
