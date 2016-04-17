@@ -21,7 +21,6 @@
 *.plist
 *.xcscheme
 *.pbxproj
-*.tex
 *.gz
 *.log
 *.aux
