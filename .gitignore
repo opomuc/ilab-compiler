@@ -1,0 +1,15 @@
+**/bin/
+**/obj/
+**/*.bmarks
+**/*.save
+**/*.layout
+**/*.html
+**/*.cbp
+**/doxygen/
+**/*.exe
+**/*.depend
+**/*.obj
+**/*.o
+**/*.h.gch
+**/*~
+**/*.swp
