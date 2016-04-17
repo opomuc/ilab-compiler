@@ -87,7 +87,7 @@ CNode::CNode(string t_str, CNode* t_left)
 }
 
 tree_print::tree_print(const char* name) {
-    tree_print::output = std::ofstream (name);
+    tree_print::output = ofstream(name);
     output << "\\documentclass[a4paper, 12pt]{article}\n\
     \\usepackage[T2A,T1]{fontenc}\n\
     \\usepackage[utf8]{inputenc}\n\
@@ -98,29 +98,29 @@ tree_print::tree_print(const char* name) {
     \\usepackage{tikz-qtree}\n\
     \\begin{document}\n\
     \\begin{otherlanguage*}{russian}\n\
-    Печать дерева, поехали!" << std::endl;
+    Печать дерева, поехали!" << endl;
 }
 
 tree_print::~tree_print() {
-    tree_print::output << std::endl;
+    tree_print::output << endl;
     tree_print::output << "\\end{otherlanguage*}\n\
-    \\end{document}" << std::endl;
+    \\end{document}" << endl;
     tree_print::output.close();
 }
 
 void tree_print::print_data_(CNode* tree, int special_characters) {
     if (tree->GetType() == Number) {
         tree_print::output << tree->GetNum();
-        std::cout << tree->GetNum();
+        cout << tree->GetNum();
     } else if (tree->GetType() == Sign) {
         if (tree->GetSign() == '^' && special_characters) {
             tree_print::output << "\\char94";
         } else {
             tree_print::output << tree->GetSign();
-            std::cout << tree->GetSign();
+            cout << tree->GetSign();
         }
     } else if (tree->GetType() == Varible) {
-        std::cout << tree->GetVar();
+        cout << tree->GetVar();
         tree_print::output << tree->GetVar();
     } else if (tree->GetType() == Function) {
         tree_print::output << tree->GetFun();
@@ -130,7 +130,7 @@ void tree_print::print_data_(CNode* tree, int special_characters) {
 void tree_print::equation(CNode* tree) {
     tree_print::output << "\n Your expression is:\n" << "$$";
     tree_print::print_equation_(tree);
-    tree_print::output << "$$" << std::endl;
+    tree_print::output << "$$" << endl;
 }
 
 void tree_print::print_equation_(CNode* tree) {
@@ -147,10 +147,10 @@ void tree_print::print_equation_(CNode* tree) {
     } else {
         tree_print::print_data_(tree);
         tree_print::output << "\\left(";
-        std::cout << tree->GetFun() << "(";
+        cout << tree->GetFun() << "(";
         tree_print::print_equation_(tree->GoLeft());
         tree_print::output << "\\right)";
-        std::cout << ")";
+        cout << ")";
     }
     if (tree->GetType() != Function) print_data_(tree);
     if (tree->GoRight() != NULL) {
@@ -172,9 +172,9 @@ void tree_print::tree(CNode* tree) {
     \\tikzset{level 1+/.style={level distance=3\\baselineskip}}\n\
     \\Large \\Tree";
     tree_print::print_tree_(tree);
-    tree_print::output << std::endl;
+    tree_print::output << endl;
     tree_print::output << "\\end{tikzpicture}}\n\
-    \\end{center}\n" << std::endl;
+    \\end{center}\n" << endl;
 }
 
 void tree_print::print_tree_(CNode* tree) {
