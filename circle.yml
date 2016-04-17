@@ -1,6 +1,10 @@
 dependencies:
-   pre:
-      - npm install pdflatex
+    pre:
+        - sudo apt-get install texlive-base
+        - sudo apt-get install texlive-latex-base
+        - sudo apt-get install texlive-pictures
+        - sudo apt-get install texlive-lang-english
+        - sudo apt-get install texlive-lang-cyrillic
 test:
-   post:
-      - make
+    post:
+       - make
