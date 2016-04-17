@@ -24,11 +24,18 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 %.tex:
-	ifeq ($(OS),Windows_NT)
-		$(EXECUTABLE)
-	endif
+	ifdef OS
+		ifeq ($(OS), Windows_NT)
+			$(EXECUTABLE)
+		else
+			./$(EXECUTABLE)
+		endif
 	else
-		./$(EXECUTABLE)
+		ifeq($(shell uname), Linux)
+			./$(EXECUTABLE)
+		else
+			$(EXECUTABLE)
+		endif
 	endif
 
 %.pdf: %.tex
