@@ -1,10 +1,14 @@
 dependencies:
+    cache_directories:
+        - "~/.apt-cache"
     pre:
+        - sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
         - sudo apt-get install texlive-base
         - sudo apt-get install texlive-latex-base
         - sudo apt-get install texlive-pictures
         - sudo apt-get install texlive-lang-english
         - sudo apt-get install texlive-lang-cyrillic
+        - sudo apt-get install texlive-fonts-recommended
 test:
     post:
        - make
