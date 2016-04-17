@@ -86,55 +86,9 @@ CNode::CNode(string t_str, CNode* t_left)
     func = t_str;
 }
 
-int print_node(ofstream& latex, CNode* tree) {
-    if (tree->GetType() != Function) {
-        if (tree->GoLeft() != NULL) { 
-            if ((tree->GoLeft()->GetType() == Number)||(tree->GoLeft()->GetType() == Varible)) {
-                print_node(latex, tree->GoLeft());
-            } else {
-                latex << "\\left(";
-                print_node(latex, tree->GoLeft());
-                latex << "\\right)";
-            }
-        }
-    } else {
-        print_data(latex, tree);
-        latex << "\\left(";
-        std::cout << tree->GetFun() << "(";
-        print_node(latex, tree->GoLeft());
-        latex << "\\right)";
-        std::cout << ")";
-    }
-    if (tree->GetType() != Function) print_data(latex, tree);
-    if (tree->GoRight() != NULL) {
-        if ((tree->GoRight()->GetType() == Number)||(tree->GoRight()->GetType() == Varible)) {
-            print_node(latex, tree->GoRight());
-        } else {
-            latex << "\\left(";
-            print_node(latex, tree->GoRight());
-            latex << "\\right)";
-        }
-    }
-    return 0;
-}
-
-void print_data (ofstream& latex, CNode* tree) {
-    if (tree->GetType() == Number) {
-        latex << tree->GetNum();
-        std::cout << tree->GetNum();
-    } else if (tree->GetType() == Sign) {
-        latex << tree->GetSign();
-        std::cout << tree->GetSign();
-    } else if (tree->GetType() == Varible) {
-        std::cout << tree->GetVar();
-        latex << tree->GetVar();
-    } else if (tree->GetType() == Function) {
-        latex << tree->GetFun();
-    }
-}
-
-int print_tree(CNode* tree) {
-    std::ofstream output ("tree.tex");
+tree_print::tree_print(const char* name):
+output(name)
+{
     output << "\\documentclass[a4paper, 12pt]{article}\n\
     \\usepackage[T2A,T1]{fontenc}\n\
     \\usepackage[utf8]{inputenc}\n\
@@ -145,44 +99,101 @@ int print_tree(CNode* tree) {
     \\usepackage{tikz-qtree}\n\
     \\begin{document}\n\
     \\begin{otherlanguage*}{russian}\n\
-    Печать дерева, поехали!" << std::endl;
-    output << "\n Your expression is:\n" << "$$";
-    print_node(output, tree);
-    output << "$$" << std::endl;
-    output << std::endl;
+    Печать дерева, поехали!" << endl;
+}
 
-    output << "\n Your tree is:\n\
+tree_print::~tree_print() {
+    tree_print::output << endl;
+    tree_print::output << "\\end{otherlanguage*}\n\
+    \\end{document}" << endl;
+    tree_print::output.close();
+}
+
+void tree_print::print_data_(CNode* tree, int special_characters) {
+    if (tree->GetType() == Number) {
+        tree_print::output << tree->GetNum();
+        cout << tree->GetNum();
+    } else if (tree->GetType() == Sign) {
+        if (tree->GetSign() == '^' && special_characters) {
+            tree_print::output << "\\char94";
+        } else {
+            tree_print::output << tree->GetSign();
+            cout << tree->GetSign();
+        }
+    } else if (tree->GetType() == Varible) {
+        cout << tree->GetVar();
+        tree_print::output << tree->GetVar();
+    } else if (tree->GetType() == Function) {
+        tree_print::output << tree->GetFun();
+    }
+}
+
+void tree_print::equation(CNode* tree) {
+    tree_print::output << "\n Your expression is:\n" << "$$";
+    tree_print::print_equation_(tree);
+    tree_print::output << "$$" << endl;
+}
+
+void tree_print::print_equation_(CNode* tree) {
+    if (tree->GetType() != Function) {
+        if (tree->GoLeft() != NULL) { 
+            if ((tree->GoLeft()->GetType() == Number)||(tree->GoLeft()->GetType() == Varible)) {
+                tree_print::print_equation_(tree->GoLeft());
+            } else {
+                tree_print::output << "\\left(";
+                tree_print::print_equation_(tree->GoLeft());
+                tree_print::output << "\\right)";
+            }
+        }
+    } else {
+        tree_print::print_data_(tree);
+        tree_print::output << "\\left(";
+        cout << tree->GetFun() << "(";
+        tree_print::print_equation_(tree->GoLeft());
+        tree_print::output << "\\right)";
+        cout << ")";
+    }
+    if (tree->GetType() != Function) print_data_(tree);
+    if (tree->GoRight() != NULL) {
+        if ((tree->GoRight()->GetType() == Number)||(tree->GoRight()->GetType() == Varible)) {
+            tree_print::print_equation_(tree->GoRight());
+        } else {
+            tree_print::output << "\\left(";
+            tree_print::print_equation_(tree->GoRight());
+            tree_print::output << "\\right)";
+        }
+    }
+}
+
+void tree_print::tree(CNode* tree) {
+    tree_print::output << "\n Your tree is:\n\
     \\begin{center}\n\
     \\resizebox{\\linewidth}{!}{\\begin{tikzpicture}[sibling distance = \\baselineskip]\n\
     \\tikzset{every tree node/.style={align=center}}\n\
     \\tikzset{level 1+/.style={level distance=3\\baselineskip}}\n\
     \\Large \\Tree";
-    print_graph(output, tree);
-    output << std::endl;
-    output << "\\end{tikzpicture}}\n\
-    \\end{center}\n\
-    \\end{otherlanguage*}\n\
-    \\end{document}" << std::endl;
-    output.close();
-    return 0;
+    tree_print::print_tree_(tree);
+    tree_print::output << endl;
+    tree_print::output << "\\end{tikzpicture}}\n\
+    \\end{center}\n" << endl;
 }
 
-int print_graph(ofstream& output, CNode* tree) {
+void tree_print::print_tree_(CNode* tree) {
     if (tree->GoLeft() != NULL) { 
-        output << " [. \\node[circle,draw=red] {";
-        print_data(output, tree);
-        output << "}; ";
-        print_graph(output, tree->GoLeft());
+        tree_print::output << " [. \\node[circle,draw=red] {";
+        tree_print::print_data_(tree, 1);
+        tree_print::output << "}; ";
+        tree_print::print_tree_(tree->GoLeft());
     }
     if ((tree->GetType() == Number)||(tree->GetType() == Varible)) {
-        output << " [. \\node[circle,draw=green]{";
-        print_data(output, tree);
+        tree_print::output << " [. \\node[circle,draw=green]{";
+        tree_print::tree_print::print_data_(tree, 1);
         output << "}; ]";
     }
-    if (tree->GoRight() != NULL) print_graph(output, tree->GoRight());
-    if (tree->GetType() == Sign || tree->GetType() == Function) output << " ]";
-    return 0;
+    if (tree->GoRight() != NULL) tree_print::print_tree_(tree->GoRight());
+    if (tree->GetType() == Sign || tree->GetType() == Function) tree_print::output << " ]";
 }
+
 
 CNode* const_optimization(const CNode* subtree)
 {
@@ -279,15 +290,12 @@ CNode* const_optimization(const CNode* subtree)
             {
                 return new CNode("ln", const_optimization(subtree->left));
             }
-            // else if (strcmp(subtree->func.c_str(), "tg") == 0)
-            {
-                 //return new CNode("/", new CNode (1.0), derivate(subtree->left));
-            }
             break;
         }
         }
 
     }
+    return NULL;
 }
 
 CNode* derivate(const CNode* subtree)
@@ -367,4 +375,5 @@ CNode* derivate(const CNode* subtree)
         break;
     }
     }
+    return NULL;
 }
