@@ -1,4 +1,6 @@
 dependencies:
+    override:
+        - /bin/true
     cache_directories:
         - "~/.apt-cache"
     pre:
