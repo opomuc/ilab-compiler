@@ -2,7 +2,11 @@ dependencies:
     cache_directories:
         - "~/.apt-cache"
     pre:
-        - sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+        - >-
+            if [[ ! -d "~/.apt-cache" ]]; then \
+            - sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+            ; fi
+    post:
         - sudo apt-get install texlive-base
         - sudo apt-get install texlive-latex-base
         - sudo apt-get install texlive-pictures
