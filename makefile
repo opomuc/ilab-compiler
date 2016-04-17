@@ -26,8 +26,10 @@ $(EXECUTABLE): $(OBJECTS)
 %.tex:
 	ifeq ($(OS),Windows_NT)
 		$(EXECUTABLE)
+	endif
 	else
 		./$(EXECUTABLE)
+	endif
 
 %.pdf: %.tex
 	$(LATEXCC) $(LATEXFLAGS) $<
