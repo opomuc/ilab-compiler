@@ -49,9 +49,16 @@ class CNode
         friend CNode* const_optimization(const CNode*);
 };
 
-void print_data(ofstream& latex, CNode* tree);
-int print_node(ofstream& latex, CNode* tree);
-int print_graph(ofstream& output, CNode* tree);
-int print_tree(CNode* tree);
-
+class tree_print {
+    std::ofstream output;
+    void print_equation_(CNode* tree);
+    void print_data_(CNode* tree, int special_characters=0);
+    void print_tree_(CNode* tree);
+    //ofstream create_tex();
+public:
+    tree_print(const char*);
+    ~tree_print();
+    void equation(CNode* tree);
+    void tree(CNode* tree);
+};
 #endif 
