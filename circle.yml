@@ -6,10 +6,11 @@ dependencies:
     cache_directories:
         - "~/.apt-cache"
     pre:
-        - mkdir $APT_CACHE_PATH
-        - cd $APT_CACHE_PATH
-        - mkdir partial
-        - cd $HOME
+        - |
+          if [mkdir $APT_CACHE_PATH]; then\
+            cd $APT_CACHE_PATH &&\
+            mkdir partial &&\
+            cd $HOME
 #       - sudo echo "dir::cache::archives $HOME/.apt-cache" >> /etc/apt/apt.conf
     post:
         - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-base
