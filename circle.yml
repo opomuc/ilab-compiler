@@ -9,7 +9,7 @@ dependencies:
         - cd $APT_CACHE_PATH
         - mkdir partial
         - cd $HOME
-        - sudo echo "dir::cache::archives $HOME/.apt-cache" >> /etc/apt/apt.conf
+#       - sudo echo "dir::cache::archives $HOME/.apt-cache" >> /etc/apt/apt.conf
     post:
         - sudo apt-get install texlive-base
         - sudo apt-get install texlive-latex-base
