@@ -6,6 +6,7 @@ dependencies:
     cache_directories:
         - $APT_CACHE_PATH
     pre:
+        - mkdir $APT_CACHE_PATH
         - cd $APT_CACHE_PATH
         - mkdir partial
         - cd $HOME
