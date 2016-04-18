@@ -1,19 +1,15 @@
 machine:
     environment:
-        APT_CACHE_PATH: ~/.apt-cache
-    post:
-        - |
-          if [[! -d "$APT_CACHE_PATH"]]; then
-            sudo rm -rf /var/cache/apt/archives && sudo ln -s $APT_CACHE_PATH /var/cache/apt/archives
-          fi
-        - cd $APT_CACHE_PATH
-        - mkdir partial
-        - cd $HOME
-        - sudo echo "dir::cache::archives ~/.apt-cache" >> /etc/apt/apt.conf
+        APT_CACHE_PATH: $HOME/.apt-cache
 
 dependencies:
     cache_directories:
-        - "~/.apt-cache"
+        - "$APT_CACHE_PATH"
+    pre:
+        - cd $APT_CACHE_PATH
+        - mkdir partial
+        - cd $HOME
+        - sudo echo "dir::cache::archives $HOME/.apt-cache" >> /etc/apt/apt.conf
     post:
         - sudo apt-get install texlive-base
         - sudo apt-get install texlive-latex-base
