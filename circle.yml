@@ -12,12 +12,12 @@ dependencies:
 #       - sudo echo "dir::cache::archives $HOME/.apt-cache" >> /etc/apt/apt.conf
     post:
         - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-base
-        - sudo apt-get install texlive-latex-base
-        - sudo apt-get install texlive-pictures
-        - sudo apt-get install texlive-humanities
-        - sudo apt-get install texlive-lang-english
-        - sudo apt-get install texlive-lang-cyrillic
-        - sudo apt-get install texlive-fonts-recommended
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-latex-base
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-pictures
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-humanities
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-lang-english
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-lang-cyrillic
+        - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-fonts-recommended
 test:
     post:
        - make
