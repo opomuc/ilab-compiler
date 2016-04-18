@@ -3,15 +3,17 @@ dependencies:
         - "~/.apt-cache"
     pre:
         - |
-            sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+          if [[! -d "~/.apt-cache"]]; then
+            sudo rm ~/.apt-cache && sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+          fi
     post:
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-base
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-latex-base
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-pictures
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-humanities
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-lang-english
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-lang-cyrillic
-        - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-fonts-recommended
+        - sudo apt-get install texlive-base
+        - sudo apt-get install texlive-latex-base
+        - sudo apt-get install texlive-pictures
+        - sudo apt-get install texlive-humanities
+        - sudo apt-get install texlive-lang-english
+        - sudo apt-get install texlive-lang-cyrillic
+        - sudo apt-get install texlive-fonts-recommended
 test:
     post:
        - make
