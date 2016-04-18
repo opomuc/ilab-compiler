@@ -4,7 +4,7 @@ machine:
 
 dependencies:
     cache_directories:
-        - "$APT_CACHE_PATH"
+        - $APT_CACHE_PATH
     pre:
         - cd $APT_CACHE_PATH
         - mkdir partial
