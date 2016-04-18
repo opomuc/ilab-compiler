@@ -4,7 +4,7 @@ machine:
 
 dependencies:
     cache_directories:
-        - $APT_CACHE_PATH
+        - "~/.apt-cache"
     pre:
         - mkdir $APT_CACHE_PATH
         - cd $APT_CACHE_PATH
