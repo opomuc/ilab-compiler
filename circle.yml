@@ -2,12 +2,9 @@ dependencies:
     cache_directories:
         - "~/.apt-cache"
     pre:
-        - >-
-            if [[ ! -d "~/.local/debs" ]]; then \
-            mkdir -p "~/.local/debs"; cd "~/.local/debs" \
-            && curl -LOs http://launchpadlibrarian.net/198723929/libc6-dbg_2.19-0ubuntu6.6_amd64.deb \
-            ; fi
-        - sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+        - |
+            sudo rm -rf /var/cache/apt/archives && sudo ln -s ~/.apt-cache /var/cache/apt/archives && mkdir -p ~/.apt-cache/partial
+    post:
         - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-base
         - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-latex-base
         - sudo apt-get -o dir::cache::archives="~/.apt-cache" install texlive-pictures
