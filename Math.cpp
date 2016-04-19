@@ -1,6 +1,13 @@
 #include "Math.h"
 #include "Tree.h"
 
+#define ADD_FUNC(func) \
+    if (strcmp(f.c_str(), func) == 0)\
+        {\
+            tmp = new CNode(func, GetExp());\
+        }\
+        else\
+
 Math::Math()
 {
     str = string();
@@ -175,23 +182,20 @@ CNode* Math::GetFunc()
     S++;
     try
     {
-        if (strcmp(f.c_str(), "sin") == 0)
-        {
-            tmp = new CNode("sin", GetExp());
-        }
-        else if (strcmp(f.c_str(), "cos") == 0)
-        {
-            tmp = new CNode("cos", GetExp());
-        }
-        else if (strcmp(f.c_str(), "ln") == 0)
-        {
-            tmp = new CNode("ln", GetExp());
-        }
-        else if (strcmp(f.c_str(), "tg") == 0)
-        {
-            tmp = new CNode("tg", GetExp());
-        }
-        else 
+        ADD_FUNC("sin")
+        ADD_FUNC("cos")
+        ADD_FUNC("tg")
+        ADD_FUNC("ctg")
+        ADD_FUNC("arcsin")
+        ADD_FUNC("arccos")
+        ADD_FUNC("arctg")
+        ADD_FUNC("arcctg")
+        ADD_FUNC("ln")
+        ADD_FUNC("lg")
+        ADD_FUNC("sh")
+        ADD_FUNC("ch")
+        ADD_FUNC("th")
+        ADD_FUNC("cth") 
         {
             throw string ("This function not exist. Please correct expression\n");
         }
