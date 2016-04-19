@@ -2,9 +2,9 @@
 #include "Tree.h"
 
 #define ADD_FUNC(func) \
-    if (strcmp(f.c_str(), "func") == 0)\
+    if (strcmp(f.c_str(), func) == 0)\
         {\
-            tmp = new CNode("func", GetExp());\
+            tmp = new CNode(func, GetExp());\
         }\
         else\
 
