@@ -1,16 +1,6 @@
 #include "Tree.h"
 #include <math.h>
 
-CNode::CNode()
-{
-    left = NULL;
-    right = NULL;
-    num = 0;
-    sign = 0;
-    var = 0;
-    func = "";
-}
-
 CNode::~CNode()
 {
     if (left != NULL)  delete left;
@@ -19,7 +9,49 @@ CNode::~CNode()
     right = NULL;
 }
 
-void CNode::GoDump(int tab)
+NCNode::NCNode(double val)
+{
+    left = NULL;
+    right = NULL;
+    num = val;
+}
+
+VCNode::VCNode(char t_var)
+{
+    left = NULL;
+    right = NULL;
+    var = t_var;
+}
+
+SCNode::SCNode(char t_data, CNode* t_left, CNode* t_right)
+{
+    left = t_left;
+    right = t_right;
+    sign = t_data;
+}
+
+FCNode::FCNode(string t_str, CNode* t_left)
+{
+    left = t_left;
+    right = NULL;
+    func = t_str;
+}
+
+void NCNode::GoDump(int tab)
+{
+    if(this != NULL)
+    {
+        int i = 0;
+        for(i = 0; i < tab - 1; i++)
+        { 
+            cout <<"    ";
+        }
+        cout << num; //выводит большие числа в виде X.XXXXXe+XX
+        cout << endl;
+    }
+}
+
+void SCNode::GoDump(int tab)
 {
     if(this != NULL)
     {
@@ -29,63 +61,40 @@ void CNode::GoDump(int tab)
         { 
             cout <<"    ";
         }
-        //cout << "---->";
-        switch(type)
-        {
-            case (0):{ cout << num; break; } //выводит большие числа в виде X.XXXXXe+XX
-            case (1):{ cout << sign; break; }
-            case (2):{ cout << var; break; }
-            case (3):{ cout << func; break; }
-        }
+        cout << sign;
         cout << endl;
         right -> GoDump(tab + 1);
     }
 }
 
-CNode::CNode(double val)
+void VCNode::GoDump(int tab)
 {
-    left = NULL;
-    right = NULL;
-    type = Number;
-    num = val;
-    sign = 0;
-    var = 0;
-    func = "";
+    if(this != NULL)
+    {
+        int i = 0;
+        for(i = 0; i < tab - 1; i++)
+        { 
+            cout <<"    ";
+        }
+        cout << var;
+        cout << endl;
+    }
 }
 
-CNode::CNode(char t_var)
+void FCNode::GoDump(int tab)
 {
-    left = NULL;
-    right = NULL;
-    type = Varible;
-    num = 0;
-    sign = 0;
-    var = t_var;
-    func = "";
+    if(this != NULL)
+    {
+        int i = 0;
+        left -> GoDump(tab + 1);
+        for(i = 0; i < tab - 1; i++)
+        { 
+            cout <<"    ";
+        }
+        cout << func;
+        cout << endl;
+    }
 }
-
-CNode::CNode(char t_data, CNode* t_left, CNode* t_right)
-{
-    left = t_left;
-    right = t_right;
-    type = Sign;
-    num = 0;
-    sign = t_data;
-    var = '\0';
-    func = "";
-}
-
-CNode::CNode(string t_str, CNode* t_left)
-{
-    left = t_left;
-    right = NULL;
-    type = Function;
-    num = 0;
-    sign = 0;
-    var = 0;
-    func = t_str;
-}
-
 tree_print::tree_print(const char* name):
 output(name)
 {

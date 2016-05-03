@@ -4,7 +4,7 @@
 #define ADD_FUNC(func) \
     if (strcmp(f.c_str(), func) == 0)\
         {\
-            tmp = new CNode(func, GetExp());\
+            tmp = new FCNode(func, GetExp());\
         }\
         else\
 
@@ -89,14 +89,14 @@ CNode* Math::GetExp()
         if (*S == '+') 
         {
             S++;
-            CNode* tmp1 = new CNode('+', tmp, GetMulDiv());
-            tmp = tmp1;
+            SCNode* tmp1 = new SCNode('+', tmp, GetMulDiv());
+            tmp = (CNode*)tmp1;
         }
         else if (*S == '-')
         {
             S++;
-            CNode* tmp1 = new CNode('-', tmp, GetMulDiv());
-            tmp = tmp1;
+            SCNode* tmp1 = new SCNode('-', tmp, GetMulDiv());
+            tmp = (CNode*)tmp1;
         }
     }
     return tmp;
@@ -110,14 +110,14 @@ CNode* Math::GetMulDiv()
         if (*S == '*') 
         {
             S++;
-            CNode* tmp1 = new CNode('*', tmp, GetPow());
-            tmp = tmp1;
+            SCNode* tmp1 = new SCNode('*', tmp, GetPow());
+            tmp = (CNode*)tmp1;
         }
         else if (*S == '/')
         {
             S++;
-            CNode* tmp1 = new CNode('/', tmp, GetPow());
-            tmp = tmp1;
+            SCNode* tmp1 = new SCNode('/', tmp, GetPow());
+            tmp = (CNode*)tmp1;
         }
     }
     return tmp;
@@ -129,8 +129,8 @@ CNode* Math::GetPow()
     if(*S == '^')
     {   
             S++;
-            CNode* tmp1 = new CNode('^', tmp, GetPas());
-            tmp = tmp1;
+            SCNode* tmp1 = new SCNode('^', tmp, GetPas());
+            tmp = (CNode*)tmp1;
     }
     return tmp;
 }
@@ -157,7 +157,8 @@ CNode*  Math::GetPas()
     else if (*S == 'x') //пока считаем, что переменная только x( потом добавить все переменные)
     {
         S++;
-        tmp = new CNode('x');
+        VCNode* tmp1 = new VCNode('x');
+        tmp = (CNode*)tmp1;
     }
     else if (((*S >= 'a') && (*S <= 'z')))
     {
@@ -172,7 +173,7 @@ CNode*  Math::GetPas()
 
 CNode* Math::GetFunc()
 {
-    CNode* tmp;
+    FCNode* tmp;
     string f;
     while(*S != '(')
     {
@@ -206,7 +207,7 @@ CNode* Math::GetFunc()
         cout << ex << endl;
         exit(1);
     }
-    return tmp;
+    return (CNode*)tmp;
 }
 
 CNode* Math::GetNum()
@@ -229,6 +230,7 @@ CNode* Math::GetNum()
         exit(1);
     }
     
-    CNode* tmp = new CNode(val);
-    return tmp;
+    NCNode* tmp = new NCNode(val);
+    return (CNode*)tmp;
 } 
+ 

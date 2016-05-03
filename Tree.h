@@ -22,31 +22,54 @@ enum c_type
 
 class CNode
 {
-    private:
-        c_type type;
-        double num;
-        char sign;
-        char var;
-        string func;
+    protected:
         CNode* left;
         CNode* right;
     public:
-        CNode();
-        CNode(double val);
-        CNode(char t_var);
-        CNode(char data, CNode* t_left, CNode* t_right);
-        CNode(string, CNode* t_left);
-        ~CNode();
-        c_type GetType() { return type; }
-        double GetNum() { return num; }
-        char GetSign() { return sign; }
-        char GetVar() { return var; }
-        string GetFun() { return func; }
+        virtual ~CNode();
         CNode* GoLeft() { return left; }
         CNode* GoRight() { return right; }
+        virtual void GoDump(int tab) = 0; //Чисто виртуальная функция
+};
+
+class SCNode: CNode
+{
+    private:
+        char sign;
+    public:
+        SCNode(char data, CNode* t_left, CNode* t_right);
+        char GetSign() { return sign; }
         void GoDump(int tab);
-        friend CNode* derivate(const CNode*);
-        friend CNode* const_optimization(const CNode*);
+};
+
+class NCNode: CNode
+{
+    private:
+        double num;
+    public:
+        NCNode(double val);
+        double GetNum() { return num; }
+        void GoDump(int tab);
+};
+
+class VCNode: CNode
+{
+    private:
+        char var;
+    public:
+        VCNode(char t_var);
+        char GetVar() { return var; }
+        void GoDump(int tab);
+};
+
+class FCNode: CNode
+{
+    private:
+        string func;
+    public:
+        FCNode(string, CNode* t_left);
+        string GetFun() { return func; }
+        void GoDump(int tab);
 };
 
 class tree_print {
