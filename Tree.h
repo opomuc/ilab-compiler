@@ -26,48 +26,48 @@ class CNode
         CNode* left;
         CNode* right;
     public:
-        virtual ~CNode();
+        ~CNode();
         CNode* GoLeft() { return left; }
         CNode* GoRight() { return right; }
         virtual void GoDump(int tab) = 0; //Чисто виртуальная функция
 };
 
-class SCNode: CNode
+class SIGN: CNode
 {
     private:
         char sign;
     public:
-        SCNode(char data, CNode* t_left, CNode* t_right);
+        SIGN(char data, CNode* t_left, CNode* t_right);
         char GetSign() { return sign; }
         void GoDump(int tab);
 };
 
-class NCNode: CNode
+class NUMB: CNode
 {
     private:
         double num;
     public:
-        NCNode(double val);
+        NUMB(double val);
         double GetNum() { return num; }
         void GoDump(int tab);
 };
 
-class VCNode: CNode
+class VARB: CNode
 {
     private:
         char var;
     public:
-        VCNode(char t_var);
+        VARB(char t_var);
         char GetVar() { return var; }
         void GoDump(int tab);
 };
 
-class FCNode: CNode
+class FUNC: CNode
 {
     private:
         string func;
     public:
-        FCNode(string, CNode* t_left);
+        FUNC(string, CNode* t_left);
         string GetFun() { return func; }
         void GoDump(int tab);
 };

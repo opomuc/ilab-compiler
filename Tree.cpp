@@ -9,35 +9,35 @@ CNode::~CNode()
     right = NULL;
 }
 
-NCNode::NCNode(double val)
+NUMB::NUMB(double val)
 {
     left = NULL;
     right = NULL;
     num = val;
 }
 
-VCNode::VCNode(char t_var)
+VARB::VARB(char t_var)
 {
     left = NULL;
     right = NULL;
     var = t_var;
 }
 
-SCNode::SCNode(char t_data, CNode* t_left, CNode* t_right)
+SIGN::SIGN(char t_data, CNode* t_left, CNode* t_right)
 {
     left = t_left;
     right = t_right;
     sign = t_data;
 }
 
-FCNode::FCNode(string t_str, CNode* t_left)
+FUNC::FUNC(string t_str, CNode* t_left)
 {
     left = t_left;
     right = NULL;
     func = t_str;
 }
 
-void NCNode::GoDump(int tab)
+void NUMB::GoDump(int tab)
 {
     if(this != NULL)
     {
@@ -51,7 +51,7 @@ void NCNode::GoDump(int tab)
     }
 }
 
-void SCNode::GoDump(int tab)
+void SIGN::GoDump(int tab)
 {
     if(this != NULL)
     {
@@ -67,7 +67,7 @@ void SCNode::GoDump(int tab)
     }
 }
 
-void VCNode::GoDump(int tab)
+void VARB::GoDump(int tab)
 {
     if(this != NULL)
     {
@@ -81,7 +81,7 @@ void VCNode::GoDump(int tab)
     }
 }
 
-void FCNode::GoDump(int tab)
+void FUNC::GoDump(int tab)
 {
     if(this != NULL)
     {

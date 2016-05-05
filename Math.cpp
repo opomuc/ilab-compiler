@@ -4,7 +4,7 @@
 #define ADD_FUNC(func) \
     if (strcmp(f.c_str(), func) == 0)\
         {\
-            tmp = new FCNode(func, GetExp());\
+            tmp = new FUNC(func, GetExp());\
         }\
         else\
 
@@ -89,13 +89,13 @@ CNode* Math::GetExp()
         if (*S == '+') 
         {
             S++;
-            SCNode* tmp1 = new SCNode('+', tmp, GetMulDiv());
+            SIGN* tmp1 = new SIGN('+', tmp, GetMulDiv());
             tmp = (CNode*)tmp1;
         }
         else if (*S == '-')
         {
             S++;
-            SCNode* tmp1 = new SCNode('-', tmp, GetMulDiv());
+            SIGN* tmp1 = new SIGN('-', tmp, GetMulDiv());
             tmp = (CNode*)tmp1;
         }
     }
@@ -110,13 +110,13 @@ CNode* Math::GetMulDiv()
         if (*S == '*') 
         {
             S++;
-            SCNode* tmp1 = new SCNode('*', tmp, GetPow());
+            SIGN* tmp1 = new SIGN('*', tmp, GetPow());
             tmp = (CNode*)tmp1;
         }
         else if (*S == '/')
         {
             S++;
-            SCNode* tmp1 = new SCNode('/', tmp, GetPow());
+            SIGN* tmp1 = new SIGN('/', tmp, GetPow());
             tmp = (CNode*)tmp1;
         }
     }
@@ -129,7 +129,7 @@ CNode* Math::GetPow()
     if(*S == '^')
     {   
             S++;
-            SCNode* tmp1 = new SCNode('^', tmp, GetPas());
+            SIGN* tmp1 = new SIGN('^', tmp, GetPas());
             tmp = (CNode*)tmp1;
     }
     return tmp;
@@ -157,7 +157,7 @@ CNode*  Math::GetPas()
     else if (*S == 'x') //пока считаем, что переменная только x( потом добавить все переменные)
     {
         S++;
-        VCNode* tmp1 = new VCNode('x');
+        VARB* tmp1 = new VARB('x');
         tmp = (CNode*)tmp1;
     }
     else if (((*S >= 'a') && (*S <= 'z')))
@@ -173,7 +173,7 @@ CNode*  Math::GetPas()
 
 CNode* Math::GetFunc()
 {
-    FCNode* tmp;
+    FUNC* tmp;
     string f;
     while(*S != '(')
     {
@@ -230,7 +230,7 @@ CNode* Math::GetNum()
         exit(1);
     }
     
-    NCNode* tmp = new NCNode(val);
+    NUMB* tmp = new NUMB(val);
     return (CNode*)tmp;
 } 
  
