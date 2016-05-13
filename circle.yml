@@ -7,11 +7,10 @@ dependencies:
         - "~/.apt-cache"
     pre:
         - |
-          if [mkdir $APT_CACHE_PATH]; then\
-            cd $APT_CACHE_PATH &&\
-            mkdir partial &&\
+          test -d "$APT_CACHE_PATH" || {
+            mkdir -p $APT_CACHE_PATH/partial
             cd $HOME
-          fi
+          }
     post:
         - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-base
         - sudo apt-get -o dir::cache::archives=$APT_CACHE_PATH install texlive-latex-base
